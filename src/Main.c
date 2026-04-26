@@ -6,30 +6,28 @@
 #include "F:/home/codeleaded/System/Static/Library/Audio.h"
 #endif
 
-#define SAMPLE_RATE         44100
-#define CHANNELS            1
-#define BITS_PER_SAMPLE     16
-#define FORMAT              SND_PCM_FORMAT_S16_LE
-#define DURATION_SECONDS    5
-#define FRAMES_PER_BUFFER   1024
-#define FILENAME            "./data/coin.wav"
+#define SAMPLE_RATE             44100
+#define CHANNELS                1
+#define BITS_PER_SAMPLE         16
+#define DURATION_SECONDS        5
+#define FRAMES_PER_BUFFER       1024
+#define FILENAME_IN             "./data/coin.wav"
+#define FILENAME_OUT            "./data/Rec_out.wav"
 
-// int main(int argc, char *argv[]) {
-//     IAudio a = IAudio_New(FORMAT,BITS_PER_SAMPLE,FRAMES_PER_BUFFER,CHANNELS,SAMPLE_RATE,500000);
-//     IAudio_Start(&a);
-
-//     sleep(DURATION_SECONDS);
-
-//     IAudio_Stop(&a);
+/*
+int main(int argc, char *argv[]) {
+    IAudio a = IAudio_New(BITS_PER_SAMPLE,FRAMES_PER_BUFFER,CHANNELS,SAMPLE_RATE,500000);
+    IAudio_Start(&a);
     
-//     IAudio_Write(&a,FILENAME);
-//     IAudio_Free(&a);
-
-//     printf("record done.\n");
-
-//     return 0;
-// }
-
+    sleep(DURATION_SECONDS);
+    
+    IAudio_Stop(&a);  
+    IAudio_Write(&a,FILENAME_OUT);
+    IAudio_Free(&a);
+    printf("record done.\n");
+    return 0;
+}
+*/
 
 int main(int argc, char *argv[]) {
     // if (argc != 2) {
@@ -37,13 +35,12 @@ int main(int argc, char *argv[]) {
     //     return 1;
     // }
 
-    OAudio a = OAudio_New(FORMAT,BITS_PER_SAMPLE,FRAMES_PER_BUFFER,2,SAMPLE_RATE);
-    WavFile wf = WavFile_Read(FILENAME,FRAMES_PER_BUFFER);
+    OAudio a = OAudio_New(BITS_PER_SAMPLE,FRAMES_PER_BUFFER,2,SAMPLE_RATE);
+    WavFile wf = WavFile_Read(FILENAME_IN,FRAMES_PER_BUFFER);
     //WavFile wf = WavFile_Read(argv[1],FRAMES_PER_BUFFER);
     WavFile_Print(&wf);
 
     OAudio_Adapt(&a,&wf);
-
     OAudio_Play(&a,&wf);
 
     WavFile_Free(&wf);
